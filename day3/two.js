@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { findDistanceToClosestIntersection } = require('./intersections');
+const { findFewestCombinedSteps } = require('./intersections');
 const { createCircuit } = require('./circuit');
 
 (function () {
@@ -9,6 +9,7 @@ const { createCircuit } = require('./circuit');
 	const path2Instructions = circuits[1].split(',');
 	const c1 = createCircuit(path1Instructions);
 	const c2 = createCircuit(path2Instructions);
-	const result = findDistanceToClosestIntersection(c1,c2);
-	console.info(`The closest intersection is ${result} units away`);
+	const result = findFewestCombinedSteps(c1,c2);
+	console.info(`The fewest combined steps is ${result} steps`);
+
 })();
