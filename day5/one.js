@@ -1,7 +1,7 @@
 const instructionSet = require('./puzzleInput');
-const intcodeProgram = require('./intcodeProgram');
+const intcodeProgramOne = require('./intcodeProgramOne');
 
 (function () {
 	const input = 1;
-	intcodeProgram(instructionSet, input);
+	intcodeProgramOne(instructionSet, input);
 })();
