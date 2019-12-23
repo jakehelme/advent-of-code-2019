@@ -1,11 +1,10 @@
-const amplificationCircuit = require('./amplificationCircuit');
+const { amplificationCircuit, amplificationCircuitFeedback } = require('./amplificationCircuit');
 
-function findMaxThrust(instructionSet) {
+function findMaxThrust(instructionSet, phaseSet, withFeedback) {
 	let phase1, phase2, phase3, phase4, phase5;
 	const setOfPhases = new Set([]);
-	let counter = 0;
 	for (let i = 0; i < 5; i++) {
-		let set1 = [0,1,2,3,4];
+		let set1 = [...phaseSet];
 		phase1 = set1[i];
 		set1.splice(i,1);
 		for (let j = 0; j < 4; j++) {
@@ -24,7 +23,6 @@ function findMaxThrust(instructionSet) {
 						let set5 = [...set4];
 						phase5 = set5[m];
 						set5.splice(m,1);
-						counter++;
 						setOfPhases.add([phase1,phase2,phase3,phase4,phase5]);
 					}
 				}	
@@ -34,7 +32,12 @@ function findMaxThrust(instructionSet) {
 	
 	let highestResult = 0;
 	setOfPhases.forEach(phases => {
-		const result = amplificationCircuit(phases, instructionSet);
+		let result;
+		if(withFeedback) {
+			result = amplificationCircuitFeedback(phases, instructionSet);	
+		} else {
+			result = amplificationCircuit(phases, instructionSet);	
+		}
 		if(result > highestResult) highestResult = result;
 	});
 	return highestResult;
